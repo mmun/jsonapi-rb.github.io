@@ -121,7 +121,7 @@ block is given, it will create a field named <code>type</code>.</p>
   <span class="k">end</span>
 
   <span class="c1"># or</span>
-  <span class="n">type</span>  <span class="c1"># implicitly expanded to `type { |t| field type: t }</span>
+  <span class="n">type</span>  <span class="c1"># implicitly expanded to `type { |t| field type: t }`</span>
 <span class="k">end</span>
 </code></pre>
 <h2>Id</h2>
@@ -157,7 +157,7 @@ hash.</p>
   <span class="k">end</span>
 
   <span class="c1"># or</span>
-  <span class="n">attribute</span> <span class="ss">:date</span>  <span class="c1"># implicitly expanded to `attribute :date { |d| field date: d }</span>
+  <span class="n">attribute</span> <span class="ss">:date</span>  <span class="c1"># implicitly expanded to `attribute(:date) { |d| field date: d }`</span>
 <span class="k">end</span>
 </code></pre>
 <h2>Relationships</h2>
