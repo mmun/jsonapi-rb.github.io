@@ -45,7 +45,8 @@
     <div class="container">
       <div class="text-center">
   <h1 class="block-title m-b-sm text-uppercase brand-name">jsonapi-rb</h1>
-  <p class="lead m-b-lg p-b-md">Efficient and convenient
+  <div class="logo"><img src="images/logo.png" alt="jsonapi-rb logo"></div>
+  <p class="lead">Efficient and convenient
     <a href="http://jsonapi.org">JSON API</a> library for ruby.</p>
 </div>
 
@@ -53,11 +54,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active">
       <a href="#serializable" aria-controls="download" role="tab"
-         data-toggle="tab">Serializable</a>
-    </li>
-    <li role="presentation">
-      <a href="#deserializable" aria-controls="download" role="tab"
-         data-toggle="tab">Deserializable</a>
+         data-toggle="tab">Serializable Resources</a>
     </li>
     <li role="presentation">
       <a href="#plain" aria-controls="download" role="tab"
@@ -110,27 +107,8 @@
 <span class="k">end</span>
 </code></pre>
     </div>
-    <div role="tabpanel" class="tab-pane" id="deserializable">
-      <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">DeserializablePost</span> <span class="o">&lt;</span> <span class="no">JSONAPI</span><span class="o">::</span><span class="no">Deserializable</span><span class="o">::</span><span class="no">Resource</span>
-  <span class="n">attribute</span> <span class="ss">:title</span>
-
-  <span class="n">attribute</span> <span class="ss">:date</span> <span class="k">do</span> <span class="o">|</span><span class="kp">attr</span><span class="o">|</span>
-    <span class="n">field</span> <span class="ss">created_at: </span><span class="kp">attr</span>
-  <span class="k">end</span>
-
-  <span class="n">relationship</span> <span class="ss">:author</span> <span class="k">do</span> <span class="o">|</span><span class="n">_rel</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">type</span><span class="o">|</span>
-    <span class="n">field</span> <span class="ss">author_id: </span><span class="nb">id</span>
-    <span class="n">field</span> <span class="ss">author_type: </span><span class="n">type</span>
-  <span class="k">end</span>
-
-  <span class="n">relationship</span> <span class="ss">:comments</span> <span class="k">do</span> <span class="o">|</span><span class="n">_rel</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">_types</span><span class="o">|</span>
-    <span class="n">field</span> <span class="ss">comment_ids: </span><span class="n">ids</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre>
-    </div>
     <div role="tabpanel" class="tab-pane" id="plain">
-      <pre class="highlight ruby"><code><span class="c1"># Gemfile (optional)</span>
+      <pre class="highlight ruby"><code><span class="c1"># Gemfile</span>
 <span class="n">gem</span> <span class="s1">'jsonapi-rb'</span>
 
 <span class="c1"># Serialization</span>
@@ -145,13 +123,14 @@
 <span class="c1"># Deserialization</span>
 <span class="nb">require</span> <span class="s1">'jsonapi/deserializable'</span>
 
-<span class="no">DeserializablePost</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">json_hash</span><span class="p">)</span>
+<span class="no">JSONAPI</span><span class="o">::</span><span class="no">Deserializable</span><span class="o">::</span><span class="no">Resource</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">json_hash</span><span class="p">)</span>
 <span class="c1"># =&gt; {</span>
 <span class="c1">#      title: 'Welcome',</span>
-<span class="c1">#      created_at: '2016-11-17',</span>
+<span class="c1">#      date: '2016-11-17',</span>
 <span class="c1">#      author_id: '5',</span>
 <span class="c1">#      author_type: 'users',</span>
-<span class="c1">#      comment_ids: ['13', '29', '31']</span>
+<span class="c1">#      comment_ids: ['13', '29', '31'],</span>
+<span class="c1">#      comment_types: ['comments', 'comments', 'comments']</span>
 <span class="c1">#    }</span>
 </code></pre>
     </div>
@@ -161,10 +140,10 @@
 
 <span class="c1"># app/controllers/posts_controller.rb</span>
 <span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="n">deserializable_resource</span> <span class="ss">:post</span><span class="p">,</span> <span class="no">DeserializablePost</span><span class="p">,</span> <span class="ss">only: </span><span class="p">[</span><span class="ss">:create</span><span class="p">,</span> <span class="ss">:update</span><span class="p">]</span>
+  <span class="n">deserializable_resource</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">only: </span><span class="p">[</span><span class="ss">:create</span><span class="p">,</span> <span class="ss">:update</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">create_params</span>
-    <span class="n">params</span><span class="p">.</span><span class="nf">require</span><span class="p">(</span><span class="ss">:post</span><span class="p">).</span><span class="nf">permit!</span>
+    <span class="n">params</span><span class="p">.</span><span class="nf">require</span><span class="p">(</span><span class="ss">:post</span><span class="p">).</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:title</span><span class="p">,</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">:tag_ids</span><span class="p">)</span>
   <span class="k">end</span>
 
   <span class="k">def</span> <span class="nf">create</span>
@@ -187,7 +166,15 @@
     <span class="kp">include</span> <span class="no">API</span><span class="o">::</span><span class="no">Action</span>
     <span class="kp">include</span> <span class="no">JSONAPI</span><span class="o">::</span><span class="no">Hanami</span><span class="o">::</span><span class="no">Action</span>
 
-    <span class="n">deserializable_resource</span> <span class="ss">:post</span><span class="p">,</span> <span class="no">DeserializablePost</span>
+    <span class="n">deserializable_resource</span> <span class="ss">:post</span>
+
+    <span class="n">params</span> <span class="k">do</span>
+      <span class="nb">require</span><span class="p">(</span><span class="ss">:post</span><span class="p">).</span><span class="nf">schema</span> <span class="k">do</span>
+        <span class="n">required</span><span class="p">(</span><span class="ss">:title</span><span class="p">)</span>
+        <span class="n">required</span><span class="p">(</span><span class="ss">:content</span><span class="p">)</span>
+        <span class="n">required</span><span class="p">(</span><span class="ss">:tag_ids</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
 
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
       <span class="n">repo</span> <span class="o">=</span> <span class="no">PostRepository</span><span class="p">.</span><span class="nf">new</span>

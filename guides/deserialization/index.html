@@ -67,7 +67,10 @@
       </ul>
       <h1>Deserialization</h1>
 
-<p>In order to build custom hashes from JSON API payloads, you need to define some
+<p>Any resource payload can be deserialized into a standardized format using the
+<code>JSONAPI::Deserializable::Resource</code> class. In case you need more control over
+the generated hash (modifying some field names, or modifying the default
+deserialization scheme for attributes/relationships), you can define custom
 <em>deserializable resources</em>. Deserializable resources map the members of a
 payload to fields of a hash. They are defined via an intuitive DSL.</p>
 

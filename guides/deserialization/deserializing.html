@@ -67,31 +67,62 @@
       </ul>
       <h1>Deserialization - Deserializing resources</h1>
 
-<p>Deserializing an input payload is straightforward: simply call it.</p>
+<p>Deserializing an input payload is straightforward: simply call the
+deserializable resource.</p>
 
-<p>Example:</p>
-<pre class="highlight ruby"><code><span class="no">DeserializablePost</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">json_hash</span><span class="p">)</span>
-<span class="c1"># =&gt; {</span>
-<span class="c1">#      type: 'posts',</span>
-<span class="c1">#      id: '5',</span>
-<span class="c1">#      created_at: '2016-11-18',</span>
-<span class="c1">#      author_id: '12',</span>
-<span class="c1">#      author_type: 'users',</span>
-<span class="c1">#      comment_ids: ['54', '32', '72']</span>
-<span class="c1">#    }</span>
+<p>Example (generic deserializable resource):
+&ldquo;`ruby
+JSONAPI::Deserializable::Resource.call(json_hash)</p>
+
+<h1>=&gt; {</h1>
+
+<h1>type: &lsquo;posts&rsquo;,</h1>
+
+<h1>id: &#39;5&rsquo;,</h1>
+
+<h1>title: &#39;Hello JSON API&rsquo;,</h1>
+
+<h1>date: &#39;2016-11-18&rsquo;,</h1>
+
+<h1>author_id: &#39;12&rsquo;,</h1>
+
+<h1>author_type: &#39;users&rsquo;,</h1>
+
+<h1>comments_ids: [&#39;54&rsquo;, &#39;32&rsquo;, &#39;72&rsquo;]</h1>
+
+<h1>comments_types: [&#39;comments&rsquo;, &#39;comments&rsquo;, &#39;comments&rsquo;]</h1>
+
+<h1>}</h1>
+<pre class="highlight plaintext"><code>
+Example (custom deserializable resource):
+
+```ruby
+DeserializablePost.call(json_hash)
+# =&gt; {
+#      type: 'posts',
+#      id: '5',
+#      title: 'Hello JSON API',
+#      created_at: '2016-11-18',
+#      author_id: '12',
+#      author_type: 'users',
+#      comment_ids: ['54', '32', '72']
+#    }
 </code></pre>
 <h2>Rails</h2>
 
 <p>When using jsonapi-rails, you can specify resources to deserialize at the
 controller level via the <code>deserializable_resource</code> method. This method takes
-a symbol along with a symbol representing a deserializable resource class, or a
-block for inline definition.</p>
+a symbol representing the desired key under which the deserialized payload will
+be available within <code>params</code>, along with an options hash, which may contain the
+<code>class</code> option to specify a custom deserializable resource class. It is also
+possible to pass it a block for inline definition of custom deserializable
+resource classes.</p>
 
 <p>The deserialized hash is then available in <code>params</code> as the specified key, and
-is in fact a normal param (which can be validated using strong parameters or
+is in fact a normal parameter (which can be validated using strong parameters or
 some validation library like <a href="http://dry-rb.org">dry-validation</a>).</p>
 
-<p>Moreover, this method accepts the optional parameters <code>only</code> and <code>except</code> for
+<p>Moreover, this method accepts the <code>only</code> and <code>except</code> options for
 limiting the deserialization to certain actions.</p>
 
 <p>Example:</p>
@@ -115,20 +146,23 @@ limiting the deserialization to certain actions.</p>
 <h2>Hanami</h2>
 
 <p>When using jsonapi-hanami, you can specify resources to deserialize at the
-action level via the <code>deserializable_resource</code> method. This method takes
-a symbol along with a symbol representing a deserializable resource class, or a
-block for inline definition.</p>
+controller level via the <code>deserializable_resource</code> method. This method takes
+a symbol representing the desired key under which the deserialized payload will
+be available within <code>params</code>, along with an options hash, which may contain the
+<code>class</code> option to specify a custom deserializable resource class. It is also
+possible to pass it a block for inline definition of custom deserializable
+resource classes.</p>
 
 <p>The deserialized hash is then available in <code>params</code> as the specified key, and
-is in fact a normal param (which can be validated using hanami-validations or
-some validation library like <a href="http://dry-rb.org">dry-validation</a>).</p>
+is in fact a normal parameter (which can be validated using hanami-validations
+or any other validation library).</p>
 
 <p>Example:</p>
 <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">API</span><span class="o">::</span><span class="no">Controllers</span><span class="o">::</span><span class="no">Create</span>
   <span class="kp">include</span> <span class="no">API</span><span class="o">::</span><span class="no">Action</span>
   <span class="kp">include</span> <span class="no">JSONAPI</span><span class="o">::</span><span class="no">Hanami</span><span class="o">::</span><span class="no">Action</span>
 
-  <span class="n">desierializable_resource</span> <span class="ss">:post</span><span class="p">,</span> <span class="no">DeserializablePost</span>
+  <span class="n">desierializable_resource</span> <span class="ss">:post</span>
 
   <span class="n">params</span> <span class="k">do</span>
     <span class="c1"># validations on params[:post]</span>
