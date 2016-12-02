@@ -70,43 +70,30 @@
 <p>Deserializing an input payload is straightforward: simply call the
 deserializable resource.</p>
 
-<p>Example (generic deserializable resource):
-&ldquo;`ruby
-JSONAPI::Deserializable::Resource.call(json_hash)</p>
-
-<h1>=&gt; {</h1>
-
-<h1>type: &lsquo;posts&rsquo;,</h1>
-
-<h1>id: &#39;5&rsquo;,</h1>
-
-<h1>title: &#39;Hello JSON API&rsquo;,</h1>
-
-<h1>date: &#39;2016-11-18&rsquo;,</h1>
-
-<h1>author_id: &#39;12&rsquo;,</h1>
-
-<h1>author_type: &#39;users&rsquo;,</h1>
-
-<h1>comments_ids: [&#39;54&rsquo;, &#39;32&rsquo;, &#39;72&rsquo;]</h1>
-
-<h1>comments_types: [&#39;comments&rsquo;, &#39;comments&rsquo;, &#39;comments&rsquo;]</h1>
-
-<h1>}</h1>
-<pre class="highlight plaintext"><code>
-Example (custom deserializable resource):
-
-```ruby
-DeserializablePost.call(json_hash)
-# =&gt; {
-#      type: 'posts',
-#      id: '5',
-#      title: 'Hello JSON API',
-#      created_at: '2016-11-18',
-#      author_id: '12',
-#      author_type: 'users',
-#      comment_ids: ['54', '32', '72']
-#    }
+<p>Example (generic deserializable resource):</p>
+<pre class="highlight ruby"><code><span class="no">JSONAPI</span><span class="o">::</span><span class="no">Deserializable</span><span class="o">::</span><span class="no">Resource</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">json_hash</span><span class="p">)</span>
+<span class="c1"># =&gt; {</span>
+<span class="c1">#      type: 'posts',</span>
+<span class="c1">#      id: '5',</span>
+<span class="c1">#      title: 'Hello JSON API',</span>
+<span class="c1">#      date: '2016-11-18',</span>
+<span class="c1">#      author_id: '12',</span>
+<span class="c1">#      author_type: 'users',</span>
+<span class="c1">#      comments_ids: ['54', '32', '72']</span>
+<span class="c1">#      comments_types: ['comments', 'comments', 'comments']</span>
+<span class="c1">#    }</span>
+</code></pre>
+<p>Example (custom deserializable resource):</p>
+<pre class="highlight ruby"><code><span class="no">DeserializablePost</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">json_hash</span><span class="p">)</span>
+<span class="c1"># =&gt; {</span>
+<span class="c1">#      type: 'posts',</span>
+<span class="c1">#      id: '5',</span>
+<span class="c1">#      title: 'Hello JSON API',</span>
+<span class="c1">#      created_at: '2016-11-18',</span>
+<span class="c1">#      author_id: '12',</span>
+<span class="c1">#      author_type: 'users',</span>
+<span class="c1">#      comment_ids: ['54', '32', '72']</span>
+<span class="c1">#    }</span>
 </code></pre>
 <h2>Rails</h2>
 
