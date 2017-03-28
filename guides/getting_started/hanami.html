@@ -83,15 +83,12 @@
 <p>In order to get a Hanami app rolling with jsonapi-rb, you will usually want to follow those 3 steps:</p>
 
 <ol>
-<li>Add <code>jsonapi-hanami</code> to your <code>Gemfile</code>:</li>
-</ol>
+<li><p>Add <code>jsonapi-hanami</code> to your <code>Gemfile</code>:</p>
 <pre class="highlight ruby"><code><span class="c1"># Gemfile</span>
 
 <span class="n">gem</span> <span class="s1">'jsonapi-hanami'</span>
-</code></pre>
-<ol>
-<li>Declare the <code>:jsonapi</code> MIME type (for serialization):</li>
-</ol>
+</code></pre></li>
+<li><p>Declare the <code>:jsonapi</code> MIME type (for serialization):</p>
 <pre class="highlight ruby"><code><span class="c1"># apps/foo/application.rb</span>
 
 <span class="k">module</span> <span class="nn">Foo</span>
@@ -103,10 +100,8 @@
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre>
-<ol>
-<li>Enable the JSON body parser (for deserialization):</li>
-</ol>
+</code></pre></li>
+<li><p>Enable the JSON body parser (for deserialization):</p>
 <pre class="highlight ruby"><code><span class="c1"># apps/foo/application.rb</span>
 
 <span class="k">module</span> <span class="nn">Foo</span>
@@ -118,10 +113,8 @@
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre>
-<ol>
-<li>Optional: Add <code>apps/foo/resources/</code> to the <code>load_path</code>:</li>
-</ol>
+</code></pre></li>
+<li><p>Optional: Add <code>apps/foo/resources/</code> to the <code>load_path</code>:</p>
 <pre class="highlight ruby"><code><span class="c1"># apps/foo/application.rb</span>
 
 <span class="k">module</span> <span class="nn">Foo</span>
@@ -136,7 +129,9 @@
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre>
+</code></pre></li>
+</ol>
+
 <h2>Examples</h2>
 
 <pre class="highlight ruby"><code><span class="c1"># Gemfile</span>
