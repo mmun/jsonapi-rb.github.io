@@ -78,21 +78,68 @@
           </ul>
         </li>
       </ul>
-      <h1>Serialization</h1>
+      <h1>Getting started - Hanami</h1>
 
-<p>In order to build JSON API documents from your data, you need to define some
-<em>serializable resources</em>. Serializable resources encapsulate your domain objects
-(which can be any kind of objects) and present them in a suitable way for JSON
-API serialization. They are defined via an intuitive yet extensive DSL.</p>
+<p>In order to get a Hanami app rolling with jsonapi-rb, you will usually want to follow those 3 steps:</p>
 
-<p>Once your serializable resources are defined, you can pass your business objects
-to the <em>renderer</em>, that will build the appropriate serializable resources, and
-render them into a JSON API document.</p>
+<ol>
+<li>Add <code>jsonapi-hanami</code> to your <code>Gemfile</code>:</li>
+</ol>
+<pre class="highlight ruby"><code><span class="c1"># Gemfile</span>
 
-<ul>
-<li><a href="/guides/serialization/defining.html">Defining serializable resources</a></li>
-<li><a href="/guides/serialization/rendering.html">Rendering JSON API documents</a></li>
-</ul>
+<span class="n">gem</span> <span class="s1">'jsonapi-hanami'</span>
+</code></pre>
+<ol>
+<li>Declare the <code>:jsonapi</code> MIME type (for serialization):</li>
+</ol>
+<pre class="highlight ruby"><code><span class="c1"># apps/foo/application.rb</span>
+
+<span class="k">module</span> <span class="nn">Foo</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Hanami</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">configure</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+      <span class="n">controller</span><span class="p">.</span><span class="nf">format</span> <span class="ss">jsonapi: </span><span class="s1">'application/vnd.api+json'</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<ol>
+<li>Enable the JSON body parser (for deserialization):</li>
+</ol>
+<pre class="highlight ruby"><code><span class="c1"># apps/foo/application.rb</span>
+
+<span class="k">module</span> <span class="nn">Foo</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Hanami</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">configure</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+      <span class="n">body_parsers</span> <span class="ss">:json</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<ol>
+<li>Optional: Add <code>apps/foo/resources/</code> to the <code>load_path</code>:</li>
+</ol>
+<pre class="highlight ruby"><code><span class="c1"># apps/foo/application.rb</span>
+
+<span class="k">module</span> <span class="nn">Foo</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Hanami</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">configure</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+      <span class="n">load_paths</span> <span class="o">&lt;&lt;</span> <span class="p">[</span>
+        <span class="c1"># ...</span>
+        <span class="s1">'resources'</span>
+      <span class="p">]</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2>Examples</h2>
+
+<p>&lt;%= partial &lsquo;peeks/hanami&rsquo; %&gt;</p>
 
     </div>
 

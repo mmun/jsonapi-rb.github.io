@@ -54,6 +54,15 @@
           <a href="/guides">Introduction</a>
         </li>
         <li class="toc-group">
+          Getting started
+          <ul>
+            <li><a href="/guides/getting_started/plain_ruby.html">Plain ruby</a></li>
+            <li><a href="/guides/getting_started/sinatra.html">Sinatra</a></li>
+            <li><a href="/guides/getting_started/hanami.html">Hanami</a></li>
+            <li><a href="/guides/getting_started/rails.html">Ruby on Rails</a></li>
+          </ul>
+        </li>
+        <li class="toc-group">
           <a href="/guides/serialization">Serialization</a>
           <ul>
             <li><a href="/guides/serialization/defining.html">Defining resources</a></li>
@@ -78,7 +87,7 @@ ActiveRecord models, or even plain hashes), along with some optional parameters
 <h2>Plain ruby</h2>
 
 <p>When using jsonapi-rb in plain ruby (or from within a framework outside of a
-controller), you can call the as follows:</p>
+controller), you can render a document as follows:</p>
 <pre class="highlight ruby"><code><span class="no">JSONAPI</span><span class="o">::</span><span class="no">Serializable</span><span class="o">::</span><span class="no">Renderer</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
 </code></pre>
 <p>You can also pass options to the renderer:</p>
