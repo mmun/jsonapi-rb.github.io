@@ -127,7 +127,7 @@ limiting the deserialization to certain actions.</p>
 
 <p>Example:</p>
 <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="n">desierializable_resource</span> <span class="ss">:post</span><span class="p">,</span> <span class="no">DeserializablePost</span><span class="p">,</span> <span class="ss">only: </span><span class="p">[</span><span class="ss">:create</span><span class="p">,</span> <span class="ss">:update</span><span class="p">]</span>
+  <span class="n">deserializable_resource</span> <span class="ss">:post</span><span class="p">,</span> <span class="no">DeserializablePost</span><span class="p">,</span> <span class="ss">only: </span><span class="p">[</span><span class="ss">:create</span><span class="p">,</span> <span class="ss">:update</span><span class="p">]</span>
 
   <span class="c1"># ...</span>
 
@@ -162,7 +162,7 @@ or any other validation library).</p>
   <span class="kp">include</span> <span class="no">API</span><span class="o">::</span><span class="no">Action</span>
   <span class="kp">include</span> <span class="no">JSONAPI</span><span class="o">::</span><span class="no">Hanami</span><span class="o">::</span><span class="no">Action</span>
 
-  <span class="n">desierializable_resource</span> <span class="ss">:post</span>
+  <span class="n">deserializable_resource</span> <span class="ss">:post</span>
 
   <span class="n">params</span> <span class="k">do</span>
     <span class="c1"># validations on params[:post]</span>
